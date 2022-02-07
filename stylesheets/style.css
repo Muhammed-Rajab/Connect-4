@@ -30,7 +30,7 @@ body {
 }
 
 .score-board{
-    width: 450px;
+    width: 600px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -54,28 +54,31 @@ body {
 }
 
 .player-turn{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
 }
 
 #grid{
     
     display: grid;
-    grid-template-rows: repeat(6, 1fr);
-    grid-template-columns: repeat(7, 1fr);
+    row-gap: 20px;
+    column-gap: 20px;
     place-items: center;
     justify-content: center;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
 
+    padding: 25px;
     min-width: 450px;
     min-height: 450px;
-    padding: 25px;
     border-radius: 7px;
     background-color: #121013;
+    box-shadow: 0px 0px 2px 2px #0e0d0db3;
 }
 .holes{
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 100%;
-    box-shadow: 0px 0px 20px 11px  rgb(44, 44, 44) inset;
+    box-shadow: 0px 0px 28px 15px  rgb(44, 44, 44) inset;
 }
