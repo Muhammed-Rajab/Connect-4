@@ -1,3 +1,7 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
+
+/* Default styling */
 *{
     margin: 0;
     padding: 0;
@@ -5,5 +9,73 @@
 }
 
 body {
-    font-family: monospace;
+    color: white;
+    background-color: #171717;
+    font-family: 'Sora', sans-serif;
+}
+
+/* Utility classes */
+.d-flex{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styling starts here */
+.container{
+    row-gap: 1rem;
+    min-width: 100vw;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.score-board{
+    width: 450px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.score{}
+.turn-wrapper{
+    column-gap: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-1{
+    box-shadow: none !important;
+    background-image: radial-gradient(red, #990000);
+}
+.player-2{
+    box-shadow: none !important;
+    background-image: radial-gradient(rgb(0, 47, 255), #000a99);
+}
+
+.player-turn{
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+}
+
+#grid{
+    
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+    place-items: center;
+    justify-content: center;
+
+    min-width: 450px;
+    min-height: 450px;
+    padding: 25px;
+    border-radius: 7px;
+    background-color: #121013;
+}
+.holes{
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 20px 11px  rgb(44, 44, 44) inset;
 }
