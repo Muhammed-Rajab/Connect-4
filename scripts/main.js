@@ -5,7 +5,7 @@ function startGame() {
 
     /* Query selectors */
     const grid = document.querySelector("#grid");
-    const scoreSpan = document.querySelector(".score");
+    const winnerSpan = document.querySelector(".winner");
     const activePlayerDisplay = document.querySelector(".player-turn");
 
     /* Variables */
@@ -14,9 +14,57 @@ function startGame() {
 
     let currentPlayer = 1;
 
+    const winningArrays = [
+        [0, 1, 2, 3],[41, 40, 39, 38],[7, 8, 9, 10],
+        [34, 33, 32, 31],[14, 15, 16, 17],[27, 26, 25, 24],
+        [21, 22, 23, 24],[20, 19, 18, 17],[28, 29, 30, 31],
+        [13, 12, 11, 10],[35, 36, 37, 38],[6, 5, 4, 3],
+        [0, 7, 14, 21],[41, 34, 27, 20],[1, 8, 15, 22],
+        [40, 33, 26, 19],[2, 9, 16, 23],[39, 32, 25, 18],
+        [3, 10, 17, 24],[38, 31, 24, 17],[4, 11, 18, 25],
+        [37, 30, 23, 16],[5, 12, 19, 26],[36, 29, 22, 15],
+        [6, 13, 20, 27],[35, 28, 21, 14],[0, 8, 16, 24],
+        [41, 33, 25, 17],[7, 15, 23, 31],[34, 26, 18, 10],
+        [14, 22, 30, 38],[27, 19, 11, 3],[35, 29, 23, 17],
+        [6, 12, 18, 24],[28, 22, 16, 10],[13, 19, 25, 31],
+        [21, 15, 9, 3],[20, 26, 32, 38],[36, 30, 24, 18],
+        [5, 11, 17, 23],[37, 31, 25, 19],[4, 10, 16, 22],
+        [2, 10, 18, 26],[39, 31, 23, 15],[1, 9, 17, 25],
+        [40, 32, 24, 16],[9, 17, 25, 33],[8, 16, 24, 32],
+        [11, 17, 23, 29],[12, 18, 24, 30],[1, 2, 3, 4],
+        [5, 4, 3, 2],[8, 9, 10, 11],[12, 11, 10, 9],
+        [15, 16, 17, 18],[19, 18, 17, 16],[22, 23, 24, 25],
+        [26, 25, 24, 23],[29, 30, 31, 32],[33, 32, 31, 30],
+        [36, 37, 38, 39],[40, 39, 38, 37],[7, 14, 21, 28],
+        [8, 15, 22, 29],[9, 16, 23, 30],[10, 17, 24, 31],
+        [11, 18, 25, 32],[12, 19, 26, 33],[13, 20, 27, 34],
+    ]
+
     /* Check for winner */
     function checkWinner(holes){
+        
+        let winner;
 
+        for (let index = 0; index < winningArrays.length; index++){
+            
+            const selected_holes = winningArrays[index].map(idx=>holes[idx]);
+            if (selected_holes.filter(hole=>hole.classList.contains('player-1')).length === 4){
+                winner = 'player-1';
+                break;
+            }
+            if (selected_holes.filter(hole=>hole.classList.contains('player-2')).length === 4){
+                winner = 'player-2';
+                break;
+            }
+
+        }
+
+        if(winner){
+            winnerSpan.classList.add(winner);
+            for(const hole of holes){
+                hole.removeEventListener("click", onHoleClick)
+            }
+        }
     };
 
     /* Toggle player */
@@ -38,7 +86,6 @@ function startGame() {
         const holeIsNotTaken = !holes[index].classList.contains("taken");
 
         if (holeHasBeadBelowOrIndexInLastRow && holeIsNotTaken){
-            
             togglePlayer(index, holes);
             checkWinner(holes);
         }
@@ -49,18 +96,12 @@ function startGame() {
     
         for(let i = 0; i < row*col; i++){
             
-            /* Creates new div element */
             const newHole = document.createElement("div");
             
-            /* Adds base class to new div element */
             newHole.classList.add("holes");
 
-            /* If the divs are at the bottom of the box, 
-                adds a taken class to it 
-            */
             if (i >= row*col-col) newHole.classList.add("base");
 
-            /* Appends new div element to grid */
             grid.appendChild(newHole);
         };
     };
@@ -71,9 +112,9 @@ function startGame() {
     {
         const holes = grid.querySelectorAll(".holes");
 
-        holes.forEach((hole, index)=>{
-            hole.addEventListener("click", () => onHoleClick(index, holes));
-        });
+        for (let index = 0; index < holes.length; index++){
+            holes[index].onclick = ()=>onHoleClick(index, holes);
+        }
     };
 };
 
