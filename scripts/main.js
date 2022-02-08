@@ -12,6 +12,7 @@ function startGame() {
     const ROW = 6;
     const COL = 7;
 
+    let winner;
     let currentPlayer = 1;
 
     const winningArrays = [
@@ -40,6 +41,21 @@ function startGame() {
         [11, 18, 25, 32],[12, 19, 26, 33],[13, 20, 27, 34],
     ];
 
+    /* Opens Winner banner */
+    function showWinnerBanner(){
+        const winnerBanner = document.querySelector('.winner-window');
+        const winnerName = document.querySelector('.winner-name');
+
+        winnerName.classList.add(winner);
+        winnerName.textContent = winner;
+
+        winnerBanner.style.display = "flex";
+
+        document.querySelector('.restart-btn').addEventListener("click", function(){
+            window.location = window.location;
+        });
+    };
+
     /* Removes eventlisteners after a player wins game */
     function removeAllEventListeners(holes){
         holes.forEach(hole => {
@@ -49,8 +65,6 @@ function startGame() {
 
     /* Check for winner */
     function checkWinner(holes){
-        
-        let winner;
 
         for (let index = 0; index < winningArrays.length; index++){
             
@@ -69,6 +83,7 @@ function startGame() {
         if(winner){
             winnerSpan.classList.add(winner);
             removeAllEventListeners(holes);
+            showWinnerBanner();
         }
     };
 
@@ -117,15 +132,6 @@ function startGame() {
     };
 
     generateHoles(COL, ROW);
-
-    /* Block to add eventlistener to holes */
-    // {
-    //     const holes = grid.querySelectorAll(".holes");
-
-    //     for (let index = 0; index < holes.length; index++){
-    //         holes[index].onclick = ()=>onHoleClick(index, holes);
-    //     }
-    // };
 };
 
 window.addEventListener("load", startGame);

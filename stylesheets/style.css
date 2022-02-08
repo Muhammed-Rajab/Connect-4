@@ -53,10 +53,12 @@ body {
 
 .player-1{
     box-shadow: none !important;
+    background-color: #990000;
     background-image: radial-gradient(red, #990000);
 }
 .player-2{
     box-shadow: none !important;
+    background-color: #000a99;
     background-image: radial-gradient(rgb(0, 47, 255), #000a99);
 }
 
@@ -88,4 +90,53 @@ body {
     height: 64px;
     border-radius: 100%;
     box-shadow: 0px 0px 28px 15px  rgb(44, 44, 44) inset;
+}
+
+@keyframes openUp {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.winner-window{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(30px);
+    background: #ffffff14;
+    justify-content: center;
+    align-items: center;
+    animation: openUp 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation-iteration-count: 1;
+}
+
+.winner-wrapper{
+    border-radius: 5px;
+    padding: 4rem 3rem;
+    background-color: #171717;
+    row-gap: 30px;
+    justify-content: center;    
+    align-items: center;
+}
+
+.winner-name{
+    padding: 10px;
+    text-transform: capitalize;
+    border-radius: 5px;
+}
+
+.restart-btn{
+    font-family: 'Sora', cursive;
+    font-size: 1.25rem;
+    width: 30%;
+    padding: 10px;
+    background-color: rgb(47, 213, 255);
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: 900;
 }
