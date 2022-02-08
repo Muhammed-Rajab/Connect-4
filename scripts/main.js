@@ -38,7 +38,14 @@ function startGame() {
         [36, 37, 38, 39],[40, 39, 38, 37],[7, 14, 21, 28],
         [8, 15, 22, 29],[9, 16, 23, 30],[10, 17, 24, 31],
         [11, 18, 25, 32],[12, 19, 26, 33],[13, 20, 27, 34],
-    ]
+    ];
+
+    /* Removes eventlisteners after a player wins game */
+    function removeAllEventListeners(holes){
+        holes.forEach(hole => {
+            hole.removeEventListener("click", onHoleClick);
+        });
+    };
 
     /* Check for winner */
     function checkWinner(holes){
@@ -61,9 +68,7 @@ function startGame() {
 
         if(winner){
             winnerSpan.classList.add(winner);
-            for(const hole of holes){
-                hole.removeEventListener("click", onHoleClick)
-            }
+            removeAllEventListeners(holes);
         }
     };
 
@@ -79,7 +84,10 @@ function startGame() {
     };
 
     /* Callback function on click a hole */
-    function onHoleClick(index, holes){
+    function onHoleClick(){
+
+        const holes = grid.querySelectorAll(".holes");
+        const index = [...holes].indexOf(this);
 
         const holeHasBeadBelowOrIndexInLastRow =  holes[index].classList.contains("base") || holes[index+7].classList.contains("taken");
 
@@ -102,6 +110,8 @@ function startGame() {
 
             if (i >= row*col-col) newHole.classList.add("base");
 
+            newHole.addEventListener("click", onHoleClick);
+
             grid.appendChild(newHole);
         };
     };
@@ -109,13 +119,13 @@ function startGame() {
     generateHoles(COL, ROW);
 
     /* Block to add eventlistener to holes */
-    {
-        const holes = grid.querySelectorAll(".holes");
+    // {
+    //     const holes = grid.querySelectorAll(".holes");
 
-        for (let index = 0; index < holes.length; index++){
-            holes[index].onclick = ()=>onHoleClick(index, holes);
-        }
-    };
+    //     for (let index = 0; index < holes.length; index++){
+    //         holes[index].onclick = ()=>onHoleClick(index, holes);
+    //     }
+    // };
 };
 
 window.addEventListener("load", startGame);
